@@ -4,63 +4,62 @@ import matplotlib.pyplot as plt
 st.title("반도체 공정 시뮬레이터")
 
 st.sidebar.header("공정 조건 선택")
-process = st.sidebar.selectbox("공정 선택",["산화, "식각", "증착"])
-temp = st.sidebar.slider("온도",200,1000,600)
-time = st.sidebar.slider("공정 시간(분)",1,120,30)
+process = st.sidebar.selectbox("공정 선택",["산화", "식각", "증착"])
+temp = st.sidebar.slider("온도", 200, 1000, 600)
+time = st.sidebar.slider("공정 시간(분)", 1, 120, 30)
 
-st.write(f"선택한 공정:**{process}**,온도:{temp},시간:{time}분")
+st.write(f"선택한 공정: **{process}**, 온도: {temp}, 시간: {time}분")
 
 if process == "산화":
-  thickness = 0.1*(temp/100)*(time**0.5)
-  st.write(f"예상 산화막 두께:**{round(thickness,2)}nm**")
+    thickness = 0.1 * (temp / 100) * (time ** 0.5)
+    st.write(f"예상 산화막 두께: **{round(thickness, 2)}nm**")
 
-  fig, ax = plt.subplots()
-  ax.plot([0,time],[0,thickness])
-  ax.set_xlabel("Time(min)")
-  ax.set_ylabel("Oxide Thickness(nm)")
-  ax.set_title("Change in Oxide Thickness")
-  st.pyplot(fig)
+    fig, ax = plt.subplots()
+    ax.plot([0, time], [0, thickness])
+    ax.set_xlabel("Time(min)")
+    ax.set_ylabel("Oxide Thickness(nm)")
+    ax.set_title("Change in Oxide Thickness")
+    st.pyplot(fig)
 
 elif process == "식각":
-  etch_rate = 0.05*(temp/100)
-  etch_thickness = etch_rate*time
-  st.write(f"예상 제거된 두께:**{round(etched_thickness,2)}nm**")
+    etch_rate = 0.05 * (temp / 100)
+    etched_thickness = etch_rate * time  # corrected variable name
+    st.write(f"예상 제거된 두께: **{round(etched_thickness, 2)}nm**")
 
-  fig, ax = plt.subplots()
-  ax.plot([0,time],[0,etched_thickness])
-  ax.set_xlabel("Time(min)")
-  ax.set_ylabel("Etched Thickness(nm)")
-  ax.set_title("Change in Etched Tick
-  st.pyplot(fig)
+    fig, ax = plt.subplots()
+    ax.plot([0, time], [0, etched_thickness])
+    ax.set_xlabel("Time(min)")
+    ax.set_ylabel("Etched Thickness(nm)")
+    ax.set_title("Change in Etched Thickness")  # fixed the title
+    st.pyplot(fig)
 
 elif process == "증착":
-  deposition_rate = 0.08*(temp/100)
-  deposited_thickness = deposition_rate*time
-  st.write(f"예상 증착막 두께:**{round(deposited_thickness,2)}nm**")
+    deposition_rate = 0.08 * (temp / 100)
+    deposited_thickness = deposition_rate * time
+    st.write(f"예상 증착막 두께: **{round(deposited_thickness, 2)}nm**")
 
-  fig, ax = plt.subplots()
-  ax.plot([0,time],[0,deposited_thickness])
-  ax.set_xlabel("Time(min)")
-  ax.set_ylabel("Deposited Thickness(nm)")
-  ax.set_title("Change in Deposited Thickness")
-  st.pyplot(fig)
+    fig, ax = plt.subplots()
+    ax.plot([0, time], [0, deposited_thickness])
+    ax.set_xlabel("Time(min)")
+    ax.set_ylabel("Deposited Thickness(nm)")
+    ax.set_title("Change in Deposited Thickness")
+    st.pyplot(fig)
 
 st.markdown("---")
 with st.expander("공정 이론 보기"):
-  if process == "산화":
-    st.markdown(""" 
-    -**산화 공정**은 실리콘 표면에 산화막을 형성하는 과정입니다.
-    -고온에서 산소 또는 물을 반응시켜 이루어지며,**Dry** 또는 **Wet 산화**방식이 있습니다.
-    """)
-  elif process == "식각":
-    st.markdown("""
-    -**식각 공정**은 불필요한 박막을 제거하는 과정입니다.
-    -**습식 식각**과**건식 식각**방식이 있으며, 정밀도가 중요합니다.
-    """)
-  elif process == "증착":
-    st.markdown("""
-    -**증착 공정**은 표면에 원하는 물질을 얇게 쌓아 올리는 과정입니다.
-    -대표적으로 **CVD**,**PVD**방식이 사용됩니다.
-    """)
-  
-    
+    if process == "산화":
+        st.markdown(""" 
+        - **산화 공정**은 실리콘 표면에 산화막을 형성하는 과정입니다.
+        - 고온에서 산소 또는 물을 반응시켜 이루어지며, **Dry** 또는 **Wet 산화** 방식이 있습니다.
+        """)
+    elif process == "식각":
+        st.markdown("""
+        - **식각 공정**은 불필요한 박막을 제거하는 과정입니다.
+        - **습식 식각**과 **건식 식각** 방식이 있으며, 정밀도가 중요합니다.
+        """)
+    elif process == "증착":
+        st.markdown("""
+        - **증착 공정**은 표면에 원하는 물질을 얇게 쌓아 올리는 과정입니다.
+        - 대표적으로 **CVD**, **PVD** 방식이 사용됩니다.
+        """)
+
